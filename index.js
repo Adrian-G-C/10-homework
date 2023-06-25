@@ -57,7 +57,7 @@ function generateLogo(text, textColor, shape, shapeColor) {
   let shapeInstance;
   switch (shape) {
     case 'circle':
-      shapeInstance = new Circle();
+      shapeInstance = new Circle(text);
       break;
     case 'triangle':
       shapeInstance = new Triangle();
@@ -70,7 +70,6 @@ function generateLogo(text, textColor, shape, shapeColor) {
       return;
   }
 
-  shapeInstance.text = text;
   shapeInstance.setColor(shapeColor);
   const svgString = `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200">${shapeInstance.render()}</svg>`;
 
