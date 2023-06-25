@@ -54,34 +54,35 @@ function promptUser() {
 }
 
 function generateLogo(text, textColor, shape, shapeColor) {
-  let shapeInstance;
-  switch (shape) {
-    case 'circle':
-      shapeInstance = new Circle();
-      break;
-    case 'triangle':
-      shapeInstance = new Triangle();
-      break;
-    case 'square':
-      shapeInstance = new Square();
-      break;
-    default:
-      console.log('Invalid shape selected.');
-      return;
-  }
-
-  shapeInstance.setColor(shapeColor);
-  const svgString = shapeInstance.render();
-
-  const fs = require('fs');
-  fs.writeFile('logo.svg', svgString, function (err) {
-    if (err) {
-      console.log('Error creating logo.svg:', err);
-    } else {
-      console.log('Generated logo.svg');
+    let shapeInstance;
+    switch (shape) {
+      case 'circle':
+        shapeInstance = new Circle();
+        break;
+      case 'triangle':
+        shapeInstance = new Triangle();
+        break;
+      case 'square':
+        shapeInstance = new Square();
+        break;
+      default:
+        console.log('Invalid shape selected.');
+        return;
     }
-  });
-}
+  
+    shapeInstance.setColor(shapeColor);
+    const svgString = `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200">${shapeInstance.render()}</svg>`;
+  
+    const fs = require('fs');
+    fs.writeFile('logo.svg', svgString, function (err) {
+      if (err) {
+        console.log('Error creating logo.svg:', err);
+      } else {
+        console.log('Generated logo.svg');
+      }
+    });
+  }
+  
 
 promptUser().then((answers) => {
   generateLogo(
