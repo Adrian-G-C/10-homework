@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
-const { Triangle, Circle, Square } = require('./lib/shapes');
+const { Circle, Triangle, Square } = require('./lib/shapes');
 
-function promptUser() {
+async function promptUser() {
   return inquirer.prompt([
     {
       type: 'input',
@@ -12,22 +12,12 @@ function promptUser() {
           return true;
         }
         return 'Please enter up to three characters.';
-      }
+      },
     },
     {
-      type: 'list',
+      type: 'input',
       name: 'textColor',
-      message: 'Choose a text color:',
-      choices: [
-        'black',
-        'white',
-        'red',
-        'green',
-        'blue',
-        'yellow',
-        'cyan',
-        'magenta',
-      ],
+      message: 'Enter the text color:',
     },
     {
       type: 'list',
@@ -36,19 +26,9 @@ function promptUser() {
       choices: ['circle', 'triangle', 'square'],
     },
     {
-      type: 'list',
+      type: 'input',
       name: 'shapeColor',
-      message: 'Choose a shape color:',
-      choices: [
-        'black',
-        'white',
-        'red',
-        'green',
-        'blue',
-        'yellow',
-        'cyan',
-        'magenta',
-      ],
+      message: 'Enter the shape color:',
     },
   ]);
 }
@@ -71,7 +51,7 @@ function generateLogo(text, textColor, shape, shapeColor) {
   }
 
   shapeInstance.setColor(shapeColor);
-  const svgString = `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200">${shapeInstance.render()}</svg>`;
+  const svgString = `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200">${shapeInstance.render(text, textColor)}</svg>`;
 
   const fs = require('fs');
   fs.writeFile('logo.svg', svgString, function (err) {
